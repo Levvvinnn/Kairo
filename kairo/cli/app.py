@@ -10,7 +10,7 @@ app: typer.Typer = typer.Typer(help="Kairo developer productivity and academic w
 console: Console = Console()
 
 
-@app.command()
+@app.command("chat")
 def chat() -> None:
     """Start a placeholder chat session with Kairo."""
     settings = Settings()
@@ -18,3 +18,4 @@ def chat() -> None:
     database.initialize()
     controller = AgentController(settings=settings, tool_registry=create_default_registry())
     console.print(controller.start_chat())
+    print("Welcome to Kairo")
