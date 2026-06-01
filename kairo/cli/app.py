@@ -12,10 +12,8 @@ console: Console = Console()
 
 @app.command("chat")
 def chat() -> None:
-    """Start a placeholder chat session with Kairo."""
     settings = Settings()
     database = Database(settings.database_path)
     database.initialize()
     controller = AgentController(settings=settings, tool_registry=create_default_registry())
-    console.print(controller.start_chat())
-    print("Welcome to Kairo")
+    print(controller.start_chat())
