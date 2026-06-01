@@ -1,5 +1,3 @@
-"""Typer application for the Kairo command-line interface."""
-
 import typer
 from rich.console import Console
 
