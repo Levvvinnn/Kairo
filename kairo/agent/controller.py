@@ -1,30 +1,20 @@
-"""Agent controller for coordinating conversations and tools."""
-
-from kairo.agent.conversation import Conversation
-from kairo.config.settings import Settings
-from kairo.tools.registry import ToolRegistry
-
+from kairo.llm.gemini import GeminiProvider
+from kairo.agent.conversation import ConversationManager
 
 class AgentController:
-    """Coordinates agent state, model access, and tool execution."""
 
-    def __init__(self, settings: Settings, tool_registry: ToolRegistry) -> None:
-        """Initialize the controller with settings and available tools."""
-        self._settings = settings
-        self._tool_registry = tool_registry
-        self._conversation = Conversation()
+    def __init__(self):
+        self.provider = GeminiProvider()
+        self.conversation = ConversationManager()
 
-    def start_chat(self) -> str:
-        """Start a placeholder chat flow."""
-        # TODO: Replace with an OpenAI-compatible agent loop.
-        return "Welcome to Kairo"
+    def chat(self, user_input):
 
-    @property
-    def conversation(self) -> Conversation:
-        """Return the active conversation."""
-        return self._conversation
+        self.conversation.add_user(user_input)
 
-    @property
-    def tool_registry(self) -> ToolRegistry:
-        """Return the tool registry available to the agent."""
-        return self._tool_registry
+        response = self.provider.chat(
+            self.conversation.get_messages()
+        )
+
+        self.conversation.add_assistant(response)
+
+        return response
