@@ -1,7 +1,8 @@
-"""Tool package for Kairo."""
+"""Tool package for Kairo.
 
-from kairo.tools.base import Tool
-from kairo.tools.github_tool import GitHubTool
-from kairo.tools.registry import ToolRegistry, create_default_registry
+Avoid importing submodules at package import time to prevent circular
+imports when submodules import the package. Import submodules explicitly
+from their full module path (e.g. `from kairo.tools.registry import ...`).
+"""
 
-__all__ = ["GitHubTool", "Tool", "ToolRegistry", "create_default_registry"]
+__all__ = []
