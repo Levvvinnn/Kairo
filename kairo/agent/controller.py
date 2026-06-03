@@ -3,8 +3,10 @@ from kairo.agent.conversation import ConversationManager
 
 from kairo.tools.registry import ToolRegistry
 from kairo.tools.github_tool import GitHubTool
+from kairo.tools.file_tool import FileTool
 from kairo.agent.prompts import SYSTEM_PROMPT
 
+import json
 
 class AgentController:
 
@@ -18,21 +20,26 @@ class AgentController:
         self.registry.register(
             GitHubTool()
         )
+        self.registry.register(
+            FileTool()
+        )
+
 
     def chat(self, user_input: str):
 
         tool_choice = self.select_tool(user_input)
 
-        if tool_choice.startswith("TOOL:"):
+        print("DEBUG:", tool_choice)
 
-            tool_name = tool_choice.replace(
-                "TOOL:",
-                ""
-            ).strip()
+        try:
+            tool_call = json.loads(tool_choice)
+
+            tool_name = tool_call["tool"]
+            arguments = tool_call["arguments"]
 
             tool = self.registry.get_tool(tool_name)
 
-            result = tool.execute()
+            result = tool.execute(**arguments)
 
             response = self.provider.chat([
                 {
@@ -43,12 +50,15 @@ class AgentController:
                     "role": "user",
                     "content": (
                         f"User asked: {user_input}\n\n"
-                        f"Tool result: {result}"
+                        f"Tool result:\n{result}"
                     )
                 }
             ])
 
             return response
+
+        except Exception:
+            pass
 
         return self.provider.chat([
             {
@@ -56,14 +66,12 @@ class AgentController:
                 "content": user_input
             }
         ])
-    
+        
     def select_tool(self, user_input):
 
         tools = self.registry.get_tool_descriptions()
 
-        prompt = SYSTEM_PROMPT.format(
-            tools=tools
-        )
+        prompt = SYSTEM_PROMPT
 
         messages = [
             {
