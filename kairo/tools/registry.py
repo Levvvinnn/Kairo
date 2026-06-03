@@ -2,7 +2,7 @@ from typing import Dict
 
 from kairo.tools.base import Tool
 from kairo.tools.github_tool import GitHubTool
-
+from kairo.tools.file_tool import FileTool
 
 class ToolRegistry:
     """Registry of tools with several convenience accessors.
@@ -46,4 +46,5 @@ def create_default_registry() -> ToolRegistry:
     """Create a registry pre-populated with built-in tools."""
     registry = ToolRegistry()
     registry.register(GitHubTool())
+    registry.register(FileTool())
     return registry
