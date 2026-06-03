@@ -10,10 +10,20 @@ app: typer.Typer = typer.Typer(help="Kairo developer productivity and academic w
 console: Console = Console()
 
 
-@app.command("chat")
-def chat() -> None:
-    settings = Settings()
-    database = Database(settings.database_path)
-    database.initialize()
-    controller = AgentController(settings=settings, tool_registry=create_default_registry())
-    print(controller.start_chat())
+@app.command()
+def chat():
+
+    controller = AgentController()
+
+    print("Kairo started.")
+
+    while True:
+
+        user = input("> ")
+
+        if user.lower() == "exit":
+            break
+
+        response = controller.chat(user)
+
+        print(response)
