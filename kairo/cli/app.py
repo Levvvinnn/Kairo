@@ -17,16 +17,9 @@ def chat():
     while True:
         user = input("> ")
 
-        if user == "/repos":
-            try:
-                tool = controller.registry.get("github_repositories")
-                print(tool.execute())
-            except KeyError:
-                print("No github tool registered.")
-            continue
-
         if user.lower() == "exit":
             break
 
         response = controller.chat(user)
+
         print(response)

@@ -19,14 +19,8 @@ class AgentController:
             GitHubTool()
         )
 
-    def chat(self, user_input):
-        self.conversation.add_user(user_input)
+    def chat(self, user_input: str):
 
-        response = self.provider.chat(
-            self.conversation.get_messages()
-        )
-
-        self.conversation.add_assistant(response)
         tool_choice = self.select_tool(user_input)
 
         if tool_choice.startswith("TOOL:"):
@@ -36,14 +30,32 @@ class AgentController:
                 ""
             ).strip()
 
-            tool = self.registry.get_tool(
-                tool_name
-            )
+            tool = self.registry.get_tool(tool_name)
 
             result = tool.execute()
 
-            return str(result)
-        return response
+            response = self.provider.chat([
+                {
+                    "role": "system",
+                    "content": "You are Kairo. Summarize tool results clearly."
+                },
+                {
+                    "role": "user",
+                    "content": (
+                        f"User asked: {user_input}\n\n"
+                        f"Tool result: {result}"
+                    )
+                }
+            ])
+
+            return response
+
+        return self.provider.chat([
+            {
+                "role": "user",
+                "content": user_input
+            }
+        ])
     
     def select_tool(self, user_input):
 
