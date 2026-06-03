@@ -16,3 +16,12 @@ class ToolRegistry:
 
     def list_tools(self):
         return list(self.tools.keys())
+
+    def get_tool_descriptions(self):
+        return [
+            {
+                "name": tool.name,
+                "description": tool.description,
+            }
+            for tool in self.tools.values()
+        ]
