@@ -1,17 +1,18 @@
-"""Placeholder search tool implementation."""
-
-from typing import Any
+from typing import Dict
 
 from kairo.tools.base import Tool
 
 
-class SearchTool(Tool):
-    """Placeholder tool for future search automation."""
+class ToolRegistry:
 
-    name: str = "search"
-    description: str = "Placeholder academic and developer search tool."
+    def __init__(self):
+        self.tools: Dict[str, Tool] = {}
 
-    def execute(self, **kwargs: Any) -> str:
-        """Return a placeholder response until search automation is implemented."""
-        # TODO: Add provider-backed search and local knowledge retrieval.
-        return "Search tool is not implemented yet."
+    def register(self, tool: Tool):
+        self.tools[tool.name] = tool
+
+    def get_tool(self, name: str):
+        return self.tools.get(name)
+
+    def list_tools(self):
+        return list(self.tools.keys())
