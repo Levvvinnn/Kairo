@@ -1,14 +1,17 @@
-"""Placeholder GitHub API client."""
+from github import Github
+
+from kairo.config.settings import settings
 
 
 class GitHubClient:
-    """Placeholder client for future GitHub API operations."""
 
-    def __init__(self, token: str | None = None) -> None:
-        """Initialize the GitHub client with an optional token."""
-        self._token = token
+    def __init__(self):
+        self.github = Github(settings.github_token)
 
-    def is_configured(self) -> bool:
-        """Return whether a GitHub token is available."""
-        # TODO: Add token validation when GitHub integration is implemented.
-        return bool(self._token)
+    def get_my_repos(self):
+        user = self.github.get_user()
+
+        return [
+            repo.full_name
+            for repo in user.get_repos()
+        ]
