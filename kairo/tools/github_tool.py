@@ -1,17 +1,20 @@
-"""Placeholder GitHub tool implementation."""
-
-from typing import Any
-
 from kairo.tools.base import Tool
+from kairo.integrations.github_client import GitHubClient
 
 
 class GitHubTool(Tool):
-    """Placeholder tool for future GitHub workflow automation."""
 
-    name: str = "github"
-    description: str = "Placeholder GitHub automation tool."
+    name = "github_repositories"
 
-    def execute(self, **kwargs: Any) -> str:
-        """Return a placeholder response until GitHub integration is implemented."""
-        # TODO: Integrate with GitHubClient for repositories, issues, and pull requests.
-        return "GitHub integration is not implemented yet."
+    description = "Returns user's repositories"
+
+    def __init__(self):
+        self.client = GitHubClient()
+
+    def execute(self, **kwargs):
+
+        repos = self.client.get_my_repos()
+
+        return {
+            "repos": repos
+        }
