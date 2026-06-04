@@ -1,6 +1,7 @@
 from kairo.llm.gemini import GeminiProvider
 from kairo.agent.conversation import ConversationManager
 
+from kairo.tools.directory_tool import DirectoryTool
 from kairo.tools.registry import ToolRegistry
 from kairo.tools.github_tool import GitHubTool
 from kairo.tools.file_tool import FileTool
@@ -16,7 +17,9 @@ class AgentController:
 
         self.registry = ToolRegistry()
 
-        # Register tools here
+        self.registry.register(
+            DirectoryTool()
+        )
         self.registry.register(
             GitHubTool()
         )
