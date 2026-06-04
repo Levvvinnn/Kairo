@@ -9,6 +9,9 @@ github_repositories
 read_file
 - Reads a file from the local filesystem.
 
+list_directory
+- Lists files and folders in a directory.
+
 IMPORTANT:
 If the user's request requires a tool, respond ONLY with valid JSON.
 
@@ -25,6 +28,10 @@ Response:
 User: Read kairo/agent/controller.py
 Response:
 {"tool":"read_file","arguments":{"path":"kairo/agent/controller.py"}}
+
+User: Show me files in this project
+Response:
+{"tool":"list_directory","arguments":{"path":"."}}
 
 If no tool is needed, answer normally.
 """
