@@ -33,5 +33,13 @@ User: Show me files in this project
 Response:
 {"tool":"list_directory","arguments":{"path":"."}}
 
+User: Where is AgentController defined?
+Response:
+{
+  "tool":"search_code",
+  "arguments":{
+      "query":"AgentController"
+  }
+}
 If no tool is needed, answer normally.
 """
