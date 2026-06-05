@@ -14,12 +14,14 @@ class DirectoryTool(Tool):
         p = Path(path)
 
         if not p.exists():
-            return {"error": "Directory not found"}
+            return {
+                "error": "Directory not found"
+            }
 
         return {
             "path": str(p),
             "entries": [
-                str(item)
+                str(item.name)
                 for item in p.iterdir()
             ]
         }
