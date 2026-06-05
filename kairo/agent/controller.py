@@ -9,6 +9,8 @@ from kairo.agent.prompts import SYSTEM_PROMPT
 
 import json
 
+from kairo.tools.search_tool import SearchTool
+
 class AgentController:
 
     def __init__(self):
@@ -25,6 +27,9 @@ class AgentController:
         )
         self.registry.register(
             FileTool()
+        )
+        self.registry.register(
+            SearchTool()
         )
 
 
