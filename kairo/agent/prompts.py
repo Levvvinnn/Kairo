@@ -29,18 +29,17 @@ User: Read kairo/agent/controller.py
 Response:
 {"tool":"read_file","arguments":{"path":"kairo/agent/controller.py"}}
 
-User: Show me files in this project
+User: Show files in this project
 Response:
 {"tool":"list_directory","arguments":{"path":"."}}
 
-User: Where is AgentController defined?
+User: Find AgentController
 Response:
-{
-  "tool":"search_code",
-  "arguments":{
-      "query":"AgentController"
-  }
-}
+{"tool":"search_code","arguments":{"query":"AgentController"}}
+
+User: Read main.py
+Response:
+{"tool":"read_file","arguments":{"path":"main.py"}}
 If no tool is needed, answer normally.
 """
 
