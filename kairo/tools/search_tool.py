@@ -7,26 +7,39 @@ class SearchTool(Tool):
 
     name = "search_code"
 
-    description = "Search for text in source files"
+    description = "Search source files"
 
     def execute(self, query):
 
-        results = []
+        matches = []
 
         for root, _, files in os.walk("."):
 
             for file in files:
 
-                if file.endswith(".py"):
+                if not file.endswith(".py"):
+                    continue
 
-                    path = os.path.join(root, file)
+                path = os.path.join(root, file)
 
-                    with open(path, "r", encoding="utf-8") as f:
+                try:
+
+                    with open(
+                        path,
+                        "r",
+                        encoding="utf-8"
+                    ) as f:
 
                         content = f.read()
 
                         if query.lower() in content.lower():
 
-                            results.append(path)
+                            matches.append(path)
 
-        return results
+                except Exception:
+                    pass
+
+        return {
+            "query": query,
+            "matches": matches
+        }
