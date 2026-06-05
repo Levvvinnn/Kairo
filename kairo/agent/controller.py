@@ -35,6 +35,7 @@ class AgentController:
         print("DEBUG:", tool_choice)
 
         try:
+
             tool_call = json.loads(tool_choice)
 
             tool_name = tool_call["tool"]
@@ -47,7 +48,10 @@ class AgentController:
             response = self.provider.chat([
                 {
                     "role": "system",
-                    "content": "You are Kairo. Summarize tool results clearly."
+                    "content": (
+                        "You are Kairo. "
+                        "Summarize tool results clearly."
+                    )
                 },
                 {
                     "role": "user",
