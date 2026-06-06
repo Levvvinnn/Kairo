@@ -10,6 +10,7 @@ from kairo.agent.prompts import SYSTEM_PROMPT
 import json
 
 from kairo.tools.search_tool import SearchTool
+from kairo.tools.tree_tool import FileTreeTool
 
 class AgentController:
 
@@ -31,7 +32,9 @@ class AgentController:
         self.registry.register(
             SearchTool()
         )
-
+        self.registry.register(
+            FileTreeTool()
+        )
 
     def chat(self, user_input: str):
 
