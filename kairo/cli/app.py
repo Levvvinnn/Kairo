@@ -8,11 +8,11 @@ console: Console = Console()
 
 
 @app.command()
-def chat():
+def chat() -> None:
 
     controller = AgentController()
 
-    print("Kairo started.")
+    console.print(f"[bold cyan]Kairo started.[/bold cyan] Session: {controller.session_id}")
 
     while True:
         user = input("> ")
@@ -20,6 +20,11 @@ def chat():
         if user.lower() == "exit":
             break
 
+        if user.strip().lower() == "/new":
+            session_id = controller.new_session()
+            console.print(f"[bold cyan]Kairo[/bold cyan] New session: {session_id}")
+            continue
+
         response = controller.chat(user)
 
-        print(response)
+        console.print(response)

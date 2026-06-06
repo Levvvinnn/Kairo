@@ -1,8 +1,12 @@
 from typing import Dict
 
 from kairo.tools.base import Tool
-from kairo.tools.github_tool import GitHubTool
+from kairo.tools.directory_tool import DirectoryTool
 from kairo.tools.file_tool import FileTool
+from kairo.tools.github_tool import GitHubTool
+from kairo.tools.project_analyzer import ProjectAnalyzerTool
+from kairo.tools.search_tool import SearchTool
+from kairo.tools.tree_tool import FileTreeTool
 
 class ToolRegistry:
     """Registry of tools with several convenience accessors.
@@ -45,6 +49,10 @@ class ToolRegistry:
 def create_default_registry() -> ToolRegistry:
     """Create a registry pre-populated with built-in tools."""
     registry = ToolRegistry()
+    registry.register(DirectoryTool())
     registry.register(GitHubTool())
     registry.register(FileTool())
+    registry.register(SearchTool())
+    registry.register(FileTreeTool())
+    registry.register(ProjectAnalyzerTool())
     return registry
