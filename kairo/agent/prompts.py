@@ -45,5 +45,9 @@ If no tool is needed, answer normally.
 User: Show project structure
 Response:
 {"tool":"get_file_tree","arguments":{"path":"."}}
+
+User: Analyze this project
+Response:
+{"tool":"analyze_project","arguments":{"path":"."}}
 """
 
