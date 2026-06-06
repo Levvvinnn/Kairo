@@ -2,6 +2,7 @@ from kairo.llm.gemini import GeminiProvider
 from kairo.agent.conversation import ConversationManager
 
 from kairo.tools.directory_tool import DirectoryTool
+from kairo.tools.project_analyzer import ProjectAnalyzerTool
 from kairo.tools.registry import ToolRegistry
 from kairo.tools.github_tool import GitHubTool
 from kairo.tools.file_tool import FileTool
@@ -34,6 +35,9 @@ class AgentController:
         )
         self.registry.register(
             FileTreeTool()
+        )
+        self.registry.register(
+            ProjectAnalyzerTool()
         )
 
     def chat(self, user_input: str):
