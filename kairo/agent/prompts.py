@@ -41,5 +41,9 @@ User: Read main.py
 Response:
 {"tool":"read_file","arguments":{"path":"main.py"}}
 If no tool is needed, answer normally.
+
+User: Show project structure
+Response:
+{"tool":"get_file_tree","arguments":{"path":"."}}
 """
 
