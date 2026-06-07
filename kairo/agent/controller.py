@@ -6,7 +6,11 @@ from typing import Any
 from rich.console import Console
 
 from kairo.agent.conversation import ChatMessage, ConversationManager
-from kairo.agent.prompts import PROJECT_ANALYSIS_PROMPT, SYSTEM_PROMPT
+from kairo.agent.prompts import (
+    PROJECT_ANALYSIS_PROMPT,
+    REPOSITORY_ANALYSIS_PROMPT,
+    SYSTEM_PROMPT,
+)
 from kairo.llm.gemini import GeminiProvider
 from kairo.tools.registry import create_default_registry
 
@@ -152,6 +156,9 @@ class AgentController:
     @staticmethod
     def _system_prompt_for(user_input: str) -> str:
         lowered_input = user_input.lower()
+        if "repository" in lowered_input or "repo" in lowered_input:
+            if "analyze" in lowered_input or "review" in lowered_input:
+                return REPOSITORY_ANALYSIS_PROMPT
         if "analyze" in lowered_input and "project" in lowered_input:
             return PROJECT_ANALYSIS_PROMPT
         if "architecture" in lowered_input and "project" in lowered_input:
