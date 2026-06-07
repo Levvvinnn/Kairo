@@ -7,10 +7,11 @@ from kairo.integrations.canvas_client import CanvasClient
 from kairo.storage.oauth_store import TokenStore
 from kairo.tools.registry import create_default_registry
 from kairo.storage.database import Database
+from kairo.config.settings import settings
 from rich.table import Table
 from rich.panel import Panel
 from rich import box
-import typer
+
 
 app: typer.Typer = typer.Typer(help="Kairo developer productivity and academic workflow assistant.")
 console: Console = Console()
