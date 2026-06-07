@@ -87,3 +87,18 @@ Welcome to Kairo
 - Build local file indexing and semantic search tools.
 - Add durable conversation history in SQLite.
 - Add automated tests for CLI, configuration, storage, and tools.
+
+## Authentication & Setup
+
+Kairo supports interactive authentication for Google and Canvas.
+
+Commands:
+
+- `python main.py auth-google` — run the Google OAuth flow and store tokens.
+- `python main.py auth-canvas` — enter Canvas base URL and API token.
+- `python main.py status` — show connection status and session information.
+- `python main.py setup` — interactive setup wizard.
+
+Tokens and credentials are stored in the project's SQLite database in the `tokens` table. Do NOT share this file.
+
+For Google OAuth you must configure `google_client_id` and `google_client_secret` in `.env` prior to running `auth-google`.
