@@ -59,6 +59,16 @@ class Database:
                 )
                 """
             )
+            # Tokens table for OAuth token storage
+            connection.execute(
+                """
+                CREATE TABLE IF NOT EXISTS tokens (
+                    provider TEXT PRIMARY KEY,
+                    token_json TEXT NOT NULL,
+                    updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+                )
+                """
+            )
             connection.commit()
 
     @property

@@ -108,6 +108,38 @@ Response:
 User: Read main.py
 Response:
 {"tool":"read_file","arguments":{"path":"main.py"}}
+
+User: Show unread Gmail messages
+Response:
+{"tool":"gmail_unread","arguments":{}}
+
+User: Search Gmail for receipts
+Response:
+{"tool":"gmail_search","arguments":{"query":"subject:receipt"}}
+
+User: List my calendar events
+Response:
+{"tool":"calendar_events","arguments":{}}
+
+User: Create an event tomorrow at 10am
+Response:
+{"tool":"calendar_create_event","arguments":{"event":{"summary":"Meeting","start":{"dateTime":"2026-06-08T10:00:00"},"end":{"dateTime":"2026-06-08T11:00:00"}}}}
+
+User: Create a new Google Doc titled Notes
+Response:
+{"tool":"docs_create","arguments":{"title":"Notes"}}
+
+User: Read a Google Doc
+Response:
+{"tool":"docs_read","arguments":{"document_id":"DOC_ID"}}
+
+User: Search Drive for project slides
+Response:
+{"tool":"drive_search","arguments":{"query":"name contains 'slides'"}}
+
+User: Get Drive file metadata
+Response:
+{"tool":"drive_read","arguments":{"file_id":"FILE_ID"}}
 If no tool is needed, answer normally.
 
 User: Show project structure
