@@ -6,6 +6,21 @@ You have access to these tools:
 github_repositories
 - Returns the user's GitHub repositories.
 
+github_repo_info
+- Returns repository metadata: name, description, language, stars, forks, open issues, and default branch.
+
+github_repo_readme
+- Returns README content for a GitHub repository.
+
+github_repo_issues
+- Returns open issues with assignees and labels.
+
+github_repo_prs
+- Returns open pull requests with author and status.
+
+github_create_issue
+- Creates a GitHub issue. Requires repository, title, and body.
+
 read_file
 - Reads a file from the local filesystem.
 
@@ -29,6 +44,22 @@ Examples:
 User: What repositories do I have?
 Response:
 {"tool":"github_repositories","arguments":{}}
+
+User: Show repository info for FocusDen
+Response:
+{"tool":"github_repo_info","arguments":{"repository":"FocusDen"}}
+
+User: Read the README for FocusDen
+Response:
+{"tool":"github_repo_readme","arguments":{"repository":"FocusDen"}}
+
+User: Show open issues for FocusDen
+Response:
+{"tool":"github_repo_issues","arguments":{"repository":"FocusDen"}}
+
+User: Create an issue in FocusDen titled Bug
+Response:
+{"tool":"github_create_issue","arguments":{"repository":"FocusDen","title":"Bug","body":"Issue details"}}
 
 User: Read main.py
 Response:
@@ -72,4 +103,22 @@ Use this sequence across multiple turns:
 5. analyze_project with path "."
 
 After the tool results are available, provide a concise architecture summary with strengths, risks, and next steps.
+"""
+
+REPOSITORY_ANALYSIS_PROMPT = SYSTEM_PROMPT + """
+
+Repository analysis workflow:
+When the user asks you to analyze a GitHub repository, inspect the repository before answering.
+Use this sequence across multiple turns:
+1. github_repo_info with the requested repository
+2. github_repo_readme with the requested repository
+3. github_repo_issues with the requested repository
+4. github_repo_prs with the requested repository if pull request context is useful
+
+After the tool results are available, provide:
+- project purpose
+- technology stack
+- architecture observations
+- active issues
+- improvement opportunities
 """

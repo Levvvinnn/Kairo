@@ -3,6 +3,13 @@ from typing import Dict
 from kairo.tools.base import Tool
 from kairo.tools.directory_tool import DirectoryTool
 from kairo.tools.file_tool import FileTool
+from kairo.tools.github_repo_tools import (
+    GitHubCreateIssueTool,
+    GitHubRepoInfoTool,
+    GitHubRepoIssuesTool,
+    GitHubRepoPullRequestsTool,
+    GitHubRepoReadmeTool,
+)
 from kairo.tools.github_tool import GitHubTool
 from kairo.tools.project_analyzer import ProjectAnalyzerTool
 from kairo.tools.search_tool import SearchTool
@@ -51,6 +58,11 @@ def create_default_registry() -> ToolRegistry:
     registry = ToolRegistry()
     registry.register(DirectoryTool())
     registry.register(GitHubTool())
+    registry.register(GitHubRepoInfoTool())
+    registry.register(GitHubRepoReadmeTool())
+    registry.register(GitHubRepoIssuesTool())
+    registry.register(GitHubRepoPullRequestsTool())
+    registry.register(GitHubCreateIssueTool())
     registry.register(FileTool())
     registry.register(SearchTool())
     registry.register(FileTreeTool())
