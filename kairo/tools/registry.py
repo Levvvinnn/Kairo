@@ -14,6 +14,12 @@ from kairo.tools.github_tool import GitHubTool
 from kairo.tools.project_analyzer import ProjectAnalyzerTool
 from kairo.tools.search_tool import SearchTool
 from kairo.tools.tree_tool import FileTreeTool
+from kairo.tools.canvas_tools import (
+    CanvasCoursesTool,
+    CanvasAssignmentsTool,
+    CanvasAnnouncementsTool,
+    CanvasGradesTool,
+)
 
 class ToolRegistry:
     """Registry of tools with several convenience accessors.
@@ -67,4 +73,13 @@ def create_default_registry() -> ToolRegistry:
     registry.register(SearchTool())
     registry.register(FileTreeTool())
     registry.register(ProjectAnalyzerTool())
+    # Canvas LMS tools
+    try:
+        registry.register(CanvasCoursesTool())
+        registry.register(CanvasAssignmentsTool())
+        registry.register(CanvasAnnouncementsTool())
+        registry.register(CanvasGradesTool())
+    except Exception:
+        # Defer failures (missing requests or config) until tool usage.
+        pass
     return registry

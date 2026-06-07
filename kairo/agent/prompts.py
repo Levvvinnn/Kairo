@@ -36,6 +36,18 @@ get_file_tree
 analyze_project
 - Analyzes a Python project.
 
+canvas_courses
+- Lists courses in Canvas LMS for the authenticated user.
+
+canvas_assignments
+- Lists assignments for a given Canvas course.
+
+canvas_announcements
+- Lists announcements for a Canvas course.
+
+canvas_grades
+- Returns grade/submission summaries for course participants.
+
 IMPORTANT:
 If the user's request requires a tool, respond ONLY with valid JSON.
 
@@ -48,6 +60,22 @@ Response:
 User: Show repository info for FocusDen
 Response:
 {"tool":"github_repo_info","arguments":{"repository":"FocusDen"}}
+
+User: List my Canvas courses
+Response:
+{"tool":"canvas_courses","arguments":{}}
+
+User: Show assignments for course 1234
+Response:
+{"tool":"canvas_assignments","arguments":{"course_id":1234}}
+
+User: Show announcements for course 1234
+Response:
+{"tool":"canvas_announcements","arguments":{"course_id":1234}}
+
+User: Get grades for course 1234
+Response:
+{"tool":"canvas_grades","arguments":{"course_id":1234}}
 
 User: Read the README for FocusDen
 Response:
