@@ -45,7 +45,16 @@ def auth_google() -> None:
     """Perform Google OAuth interactive authentication and store tokens."""
     console.print(Panel("Starting Google OAuth flow...", title="Kairo"))
     token = run_google_oauth("google")
-    console.print(Panel("Google authentication complete.", title="Kairo", subtitle=token.get("expires_at")))
+    subtitle = None
+    try:
+        if token and isinstance(token, dict):
+            exp = token.get("expires_at")
+            if exp is not None:
+                subtitle = str(exp)
+    except Exception:
+        subtitle = None
+
+    console.print(Panel("Google authentication complete.", title="Kairo", subtitle=subtitle))
 
 
 @app.command("auth-canvas")
