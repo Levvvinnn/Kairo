@@ -12,6 +12,8 @@ import requests
 
 from kairo.config.settings import settings
 from kairo.storage.oauth_store import TokenStore
+from kairo.auth.google_oauth import refresh_token as refresh_google_token
+import time
 
 
 class BaseGoogleClient:
@@ -23,6 +25,16 @@ class BaseGoogleClient:
         token = self.token_store.get_token(self.token_name)
         if not token or "access_token" not in token:
             raise RuntimeError("No OAuth access token available for Google APIs")
+        # Automatic refresh if expired
+        expires_at = token.get("expires_at")
+        if expires_at is not None and int(time.time()) >= int(expires_at) - 30:
+            # try to refresh
+            try:
+                new_token = refresh_google_token(self.token_name)
+                token = new_token
+            except Exception:
+                # If refresh fails, fall through and let the request raise
+                pass
         return {"Authorization": f"Bearer {token['access_token']}"}
 
 
