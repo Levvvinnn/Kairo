@@ -20,6 +20,16 @@ from kairo.tools.canvas_tools import (
     CanvasAnnouncementsTool,
     CanvasGradesTool,
 )
+from kairo.tools.google_tools import (
+    GmailUnreadTool,
+    GmailSearchTool,
+    CalendarEventsTool,
+    CalendarCreateEventTool,
+    DocsCreateTool,
+    DocsReadTool,
+    DriveSearchTool,
+    DriveReadFileTool,
+)
 
 class ToolRegistry:
     """Registry of tools with several convenience accessors.
@@ -81,5 +91,17 @@ def create_default_registry() -> ToolRegistry:
         registry.register(CanvasGradesTool())
     except Exception:
         # Defer failures (missing requests or config) until tool usage.
+        pass
+    # Google Workspace tools
+    try:
+        registry.register(GmailUnreadTool())
+        registry.register(GmailSearchTool())
+        registry.register(CalendarEventsTool())
+        registry.register(CalendarCreateEventTool())
+        registry.register(DocsCreateTool())
+        registry.register(DocsReadTool())
+        registry.register(DriveSearchTool())
+        registry.register(DriveReadFileTool())
+    except Exception:
         pass
     return registry

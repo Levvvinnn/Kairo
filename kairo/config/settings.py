@@ -12,6 +12,11 @@ class Settings(BaseSettings):
     canvas_api_token: str | None = None
     canvas_client_id: str | None = None
     canvas_client_secret: str | None = None
+    # Google Workspace / OAuth configuration
+    google_client_id: str | None = None
+    google_client_secret: str | None = None
+    google_redirect_uri: str | None = None
+    google_scopes: str | None = None
 
     # Use pydantic v2-style model config for settings. Allow extra env vars
     # (so unrelated keys in .env don't raise) and load from the repository
