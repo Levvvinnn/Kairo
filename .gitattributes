@@ -1,0 +1,11 @@
+# Ensure consistent text file handling
+* text=auto
+
+# Treat db files as binary
+*.db binary
+kairo.db binary
+
+# Prevent line ending conversion for certain files
+*.py text eol=lf
+*.md text eol=lf
+README.md text eol=lf
