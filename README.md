@@ -311,3 +311,5 @@ Kairo is a modular Python-based agent that coordinates developer and academic wo
 ---
 
 For contributors: see `kairo/` directories and unit tests in `tests/`. If you'd like, I can also generate developer-facing diagrams (Mermaid) or add CI test workflows next.
+
+Repository hygiene: `.gitignore` and repository attributes were updated; please re-clone if you follow the history-rewrite workflow.
