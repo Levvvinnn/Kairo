@@ -167,9 +167,9 @@ class AgentController:
 
     def weekly_planner(self) -> str:
         """Produce a weekly planner by aggregating assignments, events, and unread emails."""
-        from datetime import datetime, timedelta
+        from datetime import datetime, timedelta, timezone
 
-        now = datetime.utcnow()
+        now = datetime.now(timezone.utc)
         week_later = now + timedelta(days=7)
 
         summary_parts = []
@@ -224,9 +224,9 @@ class AgentController:
 
     def daily_briefing(self) -> str:
         """Produce a daily briefing for the next 24 hours."""
-        from datetime import datetime, timedelta
+        from datetime import datetime, timedelta, timezone
 
-        now = datetime.utcnow()
+        now = datetime.now(timezone.utc)
         tomorrow = now + timedelta(days=1)
 
         parts = []
